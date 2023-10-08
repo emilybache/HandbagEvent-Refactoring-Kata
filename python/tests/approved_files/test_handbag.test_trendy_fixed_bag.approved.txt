@@ -1,0 +1,11 @@
+
+Success: True
+Event(
+    type: 3
+    size: 18
+    status_code: Good
+    checksum: 3
+    payload: Hard strap Handbag
+    has_checksum: True
+)
+    

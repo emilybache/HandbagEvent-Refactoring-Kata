@@ -1,0 +1,11 @@
+
+Success: True
+Event(
+    type: 1
+    size: 16
+    status_code: Good
+    checksum: 7
+    payload: Shoulder Handbag
+    has_checksum: True
+)
+    

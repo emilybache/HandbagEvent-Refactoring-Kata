@@ -1,0 +1,11 @@
+
+Success: True
+Event(
+    type: 0
+    size: 1
+    status_code: Invalid market segment
+    checksum: 3
+    payload: 
+    has_checksum: True
+)
+    

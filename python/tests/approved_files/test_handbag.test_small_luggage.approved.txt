@@ -1,0 +1,11 @@
+
+Success: True
+Event(
+    type: 0
+    size: 1
+    status_code: Invalid brand
+    checksum: 4
+    payload: 
+    has_checksum: True
+)
+    
