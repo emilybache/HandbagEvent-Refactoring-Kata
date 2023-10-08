@@ -58,33 +58,31 @@ def has_dead_brand(handbag: Handbag):
 
 
 def init_handbag_event(handbag: Handbag, event: Event) -> bool:
-    result = False
-    size = 0
-    if handbag.capacity <= MAX_HANDBAG_CAPACITY and event is not None:
-        size = 1
-        if fits_desired_market_segment(handbag):
-            if has_recognized_brand(handbag) or has_dead_brand(handbag):
-                response = determine_event_payload(handbag, event)
-                if response:
-                    size = len(response)
-                    result = True
-            else:
-                event.status_code = "Invalid brand"
-                result = True
-        else:
-            event.status_code = "Invalid market segment"
-            result = True
-    else:
-        # timeout
-        pass
+    if handbag.capacity > MAX_HANDBAG_CAPACITY or event is None:
+        return False
 
-    if result:
-        event.size = size
-        event.checksum = calculate_checksum(event)
-        event.has_checksum = True
-        result = True
-    return result
+    size = 1
+    if not fits_desired_market_segment(handbag):
+        event.status_code = "Invalid market segment"
+        return set_answer_and_checksum(size, event)
 
+    if not has_recognized_brand(handbag) and not has_dead_brand(handbag):
+        event.status_code = "Invalid brand"
+        return set_answer_and_checksum(size, event)
+
+    response = determine_event_payload(handbag, event)
+    if response:
+        size = len(response)
+        return set_answer_and_checksum(size, event)
+
+    return False
+
+
+def set_answer_and_checksum(size, event: Event) -> bool:
+    event.size = size
+    event.checksum = calculate_checksum(event)
+    event.has_checksum = True
+    return True
 
 def determine_event_payload(handbag: Handbag, event: Event):
     event.payload = None
